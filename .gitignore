@@ -4,3 +4,6 @@
 # All the data
 notMNIST*
 pickled/
+
+# Mypaint notes
+*.ora
