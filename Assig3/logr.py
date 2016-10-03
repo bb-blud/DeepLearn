@@ -46,6 +46,7 @@ print('Test set', test_dataset.shape, test_labels.shape)
 def accuracy(predictions, labels):
   return (100.0 * np.sum(np.argmax(predictions, 1) == np.argmax(labels, 1))
           / predictions.shape[0])
+alpha = 0.001 #regularization rate (useless for the Logistic Regression below)
 
 ############################################################### 
 #Problem 1: Introduce L2 regularization to Logistic Regression
@@ -54,7 +55,6 @@ graph = tf.Graph()
 with graph.as_default():
     # Parameters
     learning_rate = 0.01
-    training_epochs = 25
     batch_size = 128
 
     # tf Graph Input
@@ -70,7 +70,7 @@ with graph.as_default():
     pred = tf.nn.softmax(tf.matmul(X, W) + b) # Softmax
 
     # Minimize error using cross entropy    
-    loss = tf.reduce_mean(-tf.reduce_sum(y*tf.log(pred), reduction_indices=1)) + tf.nn.l2_loss(W)
+    loss = tf.reduce_mean(-tf.reduce_sum(y*tf.log(pred), reduction_indices=1)) + alpha*tf.nn.l2_loss(W)
     # Gradient Descent
     optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss)
 
