@@ -70,7 +70,7 @@ with graph.as_default():
     pred = tf.nn.softmax(tf.matmul(X, W) + b) # Softmax
 
     # Minimize error using cross entropy    
-    loss = tf.reduce_mean(-tf.reduce_sum(y*tf.log(pred), reduction_indices=1)) #+ tf.nn.l2_loss(W)
+    loss = tf.reduce_mean(-tf.reduce_sum(y*tf.log(pred), reduction_indices=1)) + tf.nn.l2_loss(W)
     # Gradient Descent
     optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss)
 
